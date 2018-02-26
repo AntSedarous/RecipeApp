@@ -1,0 +1,1 @@
+{"status":"error","error":"EntryModuleNotFoundError","message":"Entry module not found: Error: Can't resolve './djangoproject/djangoapp/static/js/index' in '/Users/sedarous/Projects/simpleRecipe'"}

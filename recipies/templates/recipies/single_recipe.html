@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load app_filters %}
+{% block content %}
+
+<div class="content">
+  <h2>{{ recipe.name }}</h2>
+  <h4>by
+    <a href="{% url 'accounts:by_recipe' username=recipe.user.username}">
+    @{{recipe.user.username}}</a></h4>
+
+    <h6 class='card-subtitle mb-2 text-muted'>
+      {% for tags in recipe.cuisine.names %}
+      <a href="#">{{tags|htfy}}</a>
+      {% endfor %}
+    </h6>
+  <br>
+  <h5>The Story</h5>
+  <p>{{recipe.about}}</p>
+  <br>
+  <h5>What you'll need</h5>
+  <p>{{ recipe.ingredients }}</p>
+  <br>
+  <h5>Instructions</h5>
+  <p>{{ recipe.instructions }}</p>
+
+</div>
+
+{% endblock %}

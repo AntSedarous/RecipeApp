@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container">
+  <h1>Welcome to Recipe Hero!</h1>
+  {% for recipe in recipe_list %}
+    {% include 'recipies/_recipe.html' %}
+  {% endfor %}
+
+</div>
+
+{% else %}
+<div class="container">
+  <h1>Welcome to Recipe Hero!</h1>
+  <h2>Please sign up to get started!</h2>
+
+</div>
+{% endif %}
+
+{% endblock %}
