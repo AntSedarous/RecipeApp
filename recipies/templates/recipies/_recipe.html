@@ -21,7 +21,7 @@
 <div class='row'>
   <div class='col-md-4'>
     {% if recipe.pic %}
-      <img src="{{ recipe.pic.url }}" height=300 width=300 alt='blah' />
+      <img src="{{ recipe.pic.url }}" style='height: 100%; width: 100%; object-fit: contain' alt='blah' />
     {% else %}
     {% endif %}
   </div>
