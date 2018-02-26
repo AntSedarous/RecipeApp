@@ -15,6 +15,7 @@ class Recipe(models.Model):
     created_at = models.DateTimeField(auto_now=True)
     about = models.TextField(blank=True, default='')
     cuisine = TaggableManager()
+    pic = models.ImageField(upload_to='images', null=True, blank=True)
 
     def get_absolute_url(self):
         return reverse('recipies:detailview', kwargs={

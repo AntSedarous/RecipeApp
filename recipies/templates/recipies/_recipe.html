@@ -18,7 +18,15 @@
         </div>
       </div>
       {% endif %}
+<div class='row'>
+  <div class='col-md-4'>
+    {% if recipe.pic %}
+      <img src="{{ recipe.pic.url }}" height=300 width=300 alt='blah' />
+    {% else %}
+    {% endif %}
+  </div>
 
+  <div class='col-md-8'>
 
   <h4 class='card-title'>{{recipe.name}}</h4>
     <h6 class='card-subtitle mb-2 text-muted'>
@@ -36,7 +44,7 @@
     {% for tags in recipe.cuisine.names %}
     <a href="#">{{ tags|htfy }}</a>
     {% endfor %}
-
+  </div>
 
 
   <br><br>
