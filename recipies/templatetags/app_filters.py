@@ -12,3 +12,8 @@ def htfy(value):
         return '#'+str(value)
 
 register.filter('htfy', htfy)
+
+def get_recipe(value):
+    return [val.recipe for val in value]
+
+register.filter('get_recipe', get_recipe)

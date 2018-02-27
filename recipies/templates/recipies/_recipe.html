@@ -47,10 +47,22 @@
   </div>
 
 
-  <br><br>
+
+
+
+</div>
+
 
 
 </div>
 
+<a href="{% url 'recipies:like' recipe_id=recipe.pk %}">
+{% if recipe in user.likes.all|get_recipe %}
+  <strong>Unlike</strong>
+{% else %}
+  <strong>Like</strong>
+{% endif %}
+</a>
 </div>
+
 <br>

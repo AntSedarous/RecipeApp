@@ -26,3 +26,14 @@ class Recipe(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+
+
+class Like(models.Model):
+    user = models.ForeignKey(auth.models.User, on_delete=models.CASCADE, related_name='likes')
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='likes')
+    liked_at = models.DateTimeField(auto_now=True)
+
+class Save(models.Model):
+    user = models.ForeignKey(auth.models.User, on_delete=models.CASCADE, related_name='saves')
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='saves')
+    saved_at = models.DateTimeField(auto_now=True)

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
@@ -7,6 +7,9 @@ from braces.views import SelectRelatedMixin, UserPassesTestMixin
 from django.http import Http404
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+
 # Create your views here.
 
 User = get_user_model()
@@ -85,3 +88,19 @@ class DeleteRecipeView(OwnershipMixin, generic.DeleteView):
     model = models.Recipe
     template_name='recipies/delete_confirm.html'
     success_url = reverse_lazy('home')
+
+@login_required
+def like(request, recipe_id):
+    exists = models.Like.objects.filter(user=request.user, recipe_id=recipe_id).exists()
+    if exists:
+        models.Like.objects.filter(user=request.user, recipe_id=recipe_id).delete()
+    else:
+        model = models.Like(user=request.user, recipe_id=recipe_id)
+        model.save()
+    return redirect(request.META['HTTP_REFERER'])
+
+@login_required
+def like_detail(request, recipe_id):
+    recipe = get_object_or_404(models.Recipe, pk=recipe_id)
+    user_likes_this = recipe.likes.filter(user=request.user).exists()
+    return user_likes_this
