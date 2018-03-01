@@ -8,7 +8,7 @@ from django.http import Http404
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 # Create your views here.
 
@@ -91,13 +91,20 @@ class DeleteRecipeView(OwnershipMixin, generic.DeleteView):
 
 @login_required
 def like(request, recipe_id):
-    exists = models.Like.objects.filter(user=request.user, recipe_id=recipe_id).exists()
-    if exists:
+    model = models.Like.objects.filter(user=request.user, recipe_id=recipe_id)
+    if model.exists():
+        model = models.Like.objects.get(user=request.user, recipe_id=recipe_id)
         models.Like.objects.filter(user=request.user, recipe_id=recipe_id).delete()
+        data = {
+            "status": "unliked"
+        }
     else:
         model = models.Like(user=request.user, recipe_id=recipe_id)
         model.save()
-    return redirect(request.META['HTTP_REFERER'])
+        data = {
+            "status": "liked"
+        }
+    return HttpResponseRedirect(model.recipe.get_absolute_url())
 
 @login_required
 def like_detail(request, recipe_id):

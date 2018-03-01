@@ -56,13 +56,13 @@
 
 </div>
 
-<a href="{% url 'recipies:like' recipe_id=recipe.pk %}">
+<button class="btn btn-sm btn-primary like" id="{{recipe.pk}}">
 {% if recipe in user.likes.all|get_recipe %}
   <strong>Unlike</strong>
 {% else %}
   <strong>Like</strong>
 {% endif %}
-</a>
+</button>
 </div>
 
 <br>
