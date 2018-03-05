@@ -1,9 +1,29 @@
 from django.db import models
 from django.contrib import auth
 from django.urls import reverse
+import os
+from django.conf import settings
 # Create your models here.
 
 from taggit.managers import TaggableManager
+from uuid import uuid4
+
+from django.utils.deconstruct import deconstructible
+
+
+@deconstructible
+class UploadToPathAndRename(object):
+
+    def __init__(self, path):
+        self.sub_path = path
+
+    def __call__(self, instance, filename):
+        ext = filename.split('.')[-1]
+        # get filename
+            # set filename as random string
+        filename = '{}.{}'.format(uuid4().hex, ext)
+        # return the whole path to the file
+        return os.path.join(self.sub_path, filename)
 
 
 
@@ -15,7 +35,7 @@ class Recipe(models.Model):
     created_at = models.DateTimeField(auto_now=True)
     about = models.TextField(blank=True, default='')
     cuisine = TaggableManager()
-    pic = models.ImageField(upload_to='images', null=True, blank=True)
+    pic = models.ImageField(upload_to=UploadToPathAndRename('images'), null=True, blank=True)
     like_id = models.CharField(max_length=20, editable=False)
     save_id = models.CharField(max_length=20, editable=False)
 

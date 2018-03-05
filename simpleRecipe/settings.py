@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'recipies',
     'webpack_loader',
     'taggit',
+    'uuid',
 ]
 
 MIDDLEWARE = [
