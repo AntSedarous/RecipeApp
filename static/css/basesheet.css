@@ -1,0 +1,11 @@
+.holder{
+  border-color: #6B6B6B;
+  border-style: ridge;
+  border-width: thin;
+  padding: 5px;
+}
+
+.storyColor {
+  background-color: #F4F1F1;
+  padding: 15px;
+}

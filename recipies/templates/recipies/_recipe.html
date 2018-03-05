@@ -1,6 +1,6 @@
 {% load app_filters %}
 {% load staticfiles %}
-<div class="card">
+<div class="card storyColor">
   <div class="card-body">
       {% if user.is_authenticated and recipe.user == user %}
       <div class="dropdown" align="right" style="vertical-align: top;">
@@ -32,7 +32,9 @@
 
   <div class='col-md-8'>
 
-  <h4 class='card-title'>{{recipe.name}}</h4>
+  <h4 class='card-title'>
+    <a href="{% url 'recipies:detailview' pk=recipe.pk %}">{{recipe.name}}</a>
+  </h4>
     <h6 class='card-subtitle mb-2 text-muted'>
     by: <a href="{% url 'recipies:by_recipe' username=recipe.user.username %}">@{{recipe.user.username}}</a>
     <a href="{% url 'recipies:detailview' pk=recipe.pk %}">{{recipe.created_at}}</a>
