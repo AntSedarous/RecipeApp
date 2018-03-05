@@ -111,3 +111,45 @@ def like_detail(request, recipe_id):
     recipe = get_object_or_404(models.Recipe, pk=recipe_id)
     user_likes_this = recipe.likes.filter(user=request.user).exists()
     return user_likes_this
+
+
+@login_required
+def save(request, recipe_id):
+    model = models.Save.objects.filter(user=request.user, recipe_id=recipe_id)
+    if model.exists():
+        model = models.Save.objects.get(user=request.user, recipe_id=recipe_id)
+        models.Save.objects.filter(user=request.user, recipe_id=recipe_id).delete()
+        data = {
+            "status": "unliked"
+        }
+    else:
+        model = models.Save(user=request.user, recipe_id=recipe_id)
+        model.save()
+        data = {
+            "status": "liked"
+        }
+    return HttpResponseRedirect(model.recipe.get_absolute_url())
+
+
+
+class SavedRecipeList(generic.ListView, SelectRelatedMixin, LoginRequiredMixin):
+    model = models.Save
+    select_related = ('user')
+    template_name = 'recipies/saved_recipes.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['recipe_user'] = self.recipe_user
+        return context
+
+    def get_queryset(self):
+        user = self.request.user.username
+        try:
+            self.recipe_user = User.objects.prefetch_related('saves').get(username__iexact=user)
+        except User.DoesNotExist:
+            print("asdf")
+
+        else:
+            return self.recipe_user.saves.all()
+
+        self.queryset = self.model.objects.filter()

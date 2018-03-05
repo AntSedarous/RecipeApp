@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+{% load staticfiles %}
 <html>
   <head>
     <meta charset="utf-8">
@@ -29,7 +29,7 @@
 
         </li>
         <li class='nav-item'> <a class='nav-link text-white' href="{% url 'recipies:create' %}">New Recipe</a> </li>
-        <li class='nav-item'> <a class='nav-link text-white' href="{% url 'recipies:by_recipe' username=user.username %}">My Profile</a> </li>
+        <li class='nav-item'> <a class='nav-link text-white' href="{% url 'recipies:saved_list' %}">Saved Recipes</a> </li>
         <li class='nav-item'> <a class='nav-link text-white' href="{% url 'accounts:logout' %}">Logout</a> </li>
 
         {% else %}
@@ -49,24 +49,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    {% block javascript %}
-    <script>
-    $(document).ready(function(){
-      $(".like").click(function(){
-           var recipeId = $(this).attr('id');
-           var urler = "/recipies/like/"+recipeId+"/";
-         $.ajax({url: "/recipies/like/"+recipeId,
-                success: function() {
-                  $("#"+recipeId).load(location.href+" #"+recipeId+">*","");
-                },
-              error: function() {
-                alert("something broke");
-              }});
+    <script src="{% static 'js/likehandler.js' %}" type="text/javascript"> </script>
 
-       })
-
-
-    });
-    </script>
-    {% endblock %}
 </html>

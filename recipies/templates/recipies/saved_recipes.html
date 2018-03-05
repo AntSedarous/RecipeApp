@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load app_filters %}
+{% block content %}
+
+<div class="container">
+  <h1>My Recipes</h1>
+  {% for recipe in save_list|get_recipe %}
+    {% include 'recipies/_recipe.html' %}
+  {% endfor %}
+
+</div>
+
+{% endblock %}
