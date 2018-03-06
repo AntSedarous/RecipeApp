@@ -1,9 +1,29 @@
 {% extends 'base.html' %}
-
+{% load staticfiles %}
 {% block content %}
 
 <div class="container">
-  <h1>My Recipes</h1>
+  <h1><a href="{% url 'recipies:by_recipe' username=recipe_user.username %}">@{{recipe_user.username}}</a>'s Recipes</h1>
+  <div class="profPic card">
+    {% if recipe_user.profInfo.profilePic %}
+      <img src="{{ recipe_user.profInfo.profilePic.url }}" style='height: 500px; object-fit: contain'>
+      {% else %}
+      <img src="{% static 'images/ChefHat.png' %}" style='height: 500px; object-fit: contain' \>
+      {% endif %}
+      <div class="card-body">
+
+        <h4>About </h4>
+        <p>{{recipe_user.profInfo.aboutMe}}</p>
+        <br>
+        {% if user.is_authenticated and user.username == recipe_user.username %}
+        <a href="{% url 'accounts:update' pk=user.pk %}">Update Profile</a>
+        {% endif %}
+
+      </div>
+  </div>
+
+  <br>
+  <h4>Recipes</h4>
   {% for recipe in recipe_list %}
     {% include 'recipies/_recipe.html' %}
   {% endfor %}

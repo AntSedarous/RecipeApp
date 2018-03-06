@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'webpack_loader',
     'taggit',
     'uuid',
+    'annoying',
 ]
 
 MIDDLEWARE = [
