@@ -4,3 +4,4 @@ from . import models
 admin.site.register(models.Like)
 admin.site.register(models.Recipe)
 admin.site.register(models.Save)
+admin.site.register(models.Cuisine)

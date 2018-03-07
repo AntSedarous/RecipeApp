@@ -5,8 +5,9 @@
 
 <div class="content storyColor">
   <h2>{{ recipe.name }}</h2>
+  <h5>Cuisine: <font color="red">{{recipe.cuisine.cuisine}}</font></h5>
   <h4>by
-    <a href="{% url 'accounts:by_recipe' username=recipe.user.username}">
+    <a href="{% url 'recipies:by_recipe' username=recipe.user.username %}">
     @{{recipe.user.username}}</a></h4>
 
     <h6 class='card-subtitle mb-2 text-muted'>

@@ -80,7 +80,7 @@ class MyRecipeList(generic.ListView, SelectRelatedMixin, LoginRequiredMixin):
 class EditRecipeView(OwnershipMixin, generic.UpdateView, SelectRelatedMixin):
     model = models.Recipe
     select_related=('user')
-    fields = ('name', 'ingredients', 'instructions', 'about', 'cuisine', 'pic')
+    fields = ('cuisine', 'name', 'ingredients', 'instructions', 'about', 'cuisine', 'pic')
     template_name = 'recipies/recipe_update.html'
 
 

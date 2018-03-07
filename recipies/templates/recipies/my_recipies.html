@@ -4,7 +4,7 @@
 
 <div class="container">
   <h1><a href="{% url 'recipies:by_recipe' username=recipe_user.username %}">@{{recipe_user.username}}</a>'s Recipes</h1>
-  <div class="profPic card">
+  <div class="card profPic">
     {% if recipe_user.profInfo.profilePic %}
       <img src="{{ recipe_user.profInfo.profilePic.url }}" style='height: 500px; object-fit: contain'>
       {% else %}
