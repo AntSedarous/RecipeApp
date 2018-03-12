@@ -9,7 +9,9 @@ from django.core.exceptions import PermissionDenied
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
-
+from datetime import datetime, timedelta
+from django.db.models import Sum, Count
+from django.utils import timezone
 # Create your views here.
 
 User = get_user_model()
@@ -94,16 +96,13 @@ def like(request, recipe_id):
     model = models.Like.objects.filter(user=request.user, recipe_id=recipe_id)
     if model.exists():
         model = models.Like.objects.get(user=request.user, recipe_id=recipe_id)
-        models.Like.objects.filter(user=request.user, recipe_id=recipe_id).delete()
-        data = {
-            "status": "unliked"
-        }
+        model.is_liked = not model.is_liked
+        model.recent_like = datetime.now()
+        model.save()
+
     else:
         model = models.Like(user=request.user, recipe_id=recipe_id)
         model.save()
-        data = {
-            "status": "liked"
-        }
     return HttpResponseRedirect(model.recipe.get_absolute_url())
 
 @login_required
@@ -153,3 +152,9 @@ class SavedRecipeList(generic.ListView, SelectRelatedMixin, LoginRequiredMixin):
             return self.recipe_user.saves.all()
 
         self.queryset = self.model.objects.filter()
+
+
+def trending_list(request):
+    likes = models.Like.objects.filter(liked_at__gte=timezone.now()-timedelta(days=1), is_liked__exact=True)
+    rtnNames = likes.values('recipe').annotate(num_likes=Count('is_liked')).order_by('-num_likes')[0:10]
+    return render(request, 'recipies/trending.html', context={'trending_list': rtnNames})

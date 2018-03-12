@@ -65,6 +65,8 @@ class Like(models.Model):
     user = models.ForeignKey(auth.models.User, on_delete=models.CASCADE, related_name='likes')
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='likes')
     liked_at = models.DateTimeField(auto_now=True)
+    recent_like = models.DateTimeField(auto_now=True)
+    is_liked = models.BooleanField(default=True)
 
 class Save(models.Model):
     user = models.ForeignKey(auth.models.User, on_delete=models.CASCADE, related_name='saves')

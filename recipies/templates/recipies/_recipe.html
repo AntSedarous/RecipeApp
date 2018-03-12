@@ -57,19 +57,22 @@
 
 
 </div>
-
+{% if user.is_authenticated %}
 <div class="row">
 
 
   <button class="btn btn-sm btn-primary like col" id="{{recipe.like_id}}">
-  {% if recipe in user.likes.all|get_recipe %}
+  {% with likes=user.likes.all %}
+  {% if likes|get_like:recipe.pk == True %}
     <strong>Unlike</strong>
   {% else %}
     <strong>Like</strong>
   {% endif %}
+  {% endwith %}
   </button>
 
   <button class="btn btn-sm btn-primary save col" id="{{recipe.save_id}}">
+
   {% if recipe in user.saves.all|get_recipe %}
     <strong>Unsave</strong>
   {% else %}
@@ -77,6 +80,7 @@
   {% endif %}
   </button>
 </div>
+{% endif %}
 
 </div>
 

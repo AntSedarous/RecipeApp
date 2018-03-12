@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load app_filters %}
+
+{% block content %}
+
+  <div class="container">
+    <h1>Trending Recipes!</h1>
+    <ol>
+      {% for name in trending_list %}
+      {% with recipe=name.recipe|get_recipe_frpk %}
+        {% include 'recipies/_recipe.html' %}
+        {% endwith %}
+      {% endfor %}
+    </ol>
+
+  </div>
+
+{% endblock %}

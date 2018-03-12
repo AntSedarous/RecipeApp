@@ -29,11 +29,13 @@
         </a>
 
         </li>
+        <li class='nav-item'> <a class='nav-link text-white' href="{% url 'recipies:trending' %}">Trending</a> </li>
         <li class='nav-item'> <a class='nav-link text-white' href="{% url 'recipies:create' %}">New Recipe</a> </li>
         <li class='nav-item'> <a class='nav-link text-white' href="{% url 'recipies:saved_list' %}">Saved Recipes</a> </li>
         <li class='nav-item'> <a class='nav-link text-white' href="{% url 'accounts:logout' %}">Logout</a> </li>
 
         {% else %}
+        <li class='nav-item'> <a class='nav-link text-white' href="{% url 'recipies:trending' %}">Trending</a> </li>
         <li class='nav-item'> <a class='nav-link text-white' href="{% url 'accounts:signup' %}">Sign Up</a> </li>
         <li class='nav-item'> <a class='nav-link text-white' href="{% url 'accounts:login' %}">Login</a> </li>
         {% endif %}

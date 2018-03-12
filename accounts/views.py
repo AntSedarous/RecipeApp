@@ -3,6 +3,7 @@ from . import models
 from django.urls import reverse_lazy
 from . import forms
 from django.views.generic import CreateView, UpdateView
+
 # Create your views here.
 
 

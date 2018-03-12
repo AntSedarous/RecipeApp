@@ -13,4 +13,5 @@ urlpatterns = [
     path('like/<int:recipe_id>/', views.like, name='like'),
     path('save/<int:recipe_id>/', views.save, name='save'),
     path('saved/', views.SavedRecipeList.as_view(), name='saved_list'),
+    path('trending/', views.trending_list, name='trending'),
 ]
