@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'taggit',
     'uuid',
     'annoying',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
