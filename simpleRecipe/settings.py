@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'uuid',
     'annoying',
     'rest_framework',
+    'frontend',
 ]
 
 MIDDLEWARE = [

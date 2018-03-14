@@ -28,6 +28,7 @@ urlpatterns = [
     path('thanks/', views.ThanksPage.as_view(), name='thanks'),
     path('recipies/', include('recipies.urls', namespace='recipies')),
     path('api/', include('api.urls', namespace='api')),
+    path('api/', include('frontend.urls', namespace='frontend')),
 
 ]
 
